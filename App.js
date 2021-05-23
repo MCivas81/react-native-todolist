@@ -1,17 +1,19 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, FlatList } from 'react-native';
+import { StyleSheet, Button, View, FlatList } from 'react-native';
 import TodoItem from './components/TodoItem';
 import TodoInput from './components/TodoInput';
 
 export default function App() {
   const [todos, setTodos] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const addTodosHandler = (todoTitle) => {
     setTodos((todos) => [
       ...todos,
       { id: Math.random().toString(), value: todoTitle },
     ]);
+    setIsModalOpen(false);
   };
 
   const removeTodoHandler = (todoId) => {
@@ -20,10 +22,18 @@ export default function App() {
     });
   };
 
+  const closeModalHandler = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <View style={styles.Screen}>
-      <Text style={styles.Title}>MY TODO APP</Text>
-      <TodoInput onAddTodo={addTodosHandler} />
+      <Button title='ADD YOUR TODO' onPress={() => setIsModalOpen(true)} />
+      <TodoInput
+        visible={isModalOpen}
+        onAddTodo={addTodosHandler}
+        onCloseModal={closeModalHandler}
+      />
       <FlatList
         keyExtractor={(item, index) => item.id}
         data={todos}
@@ -42,10 +52,5 @@ export default function App() {
 const styles = StyleSheet.create({
   Screen: {
     padding: 50,
-  },
-  Title: {
-    marginTop: 30,
-    color: '#f22',
-    fontSize: 20,
   },
 });
