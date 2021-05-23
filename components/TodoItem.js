@@ -1,11 +1,13 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
-function TodoItem({ todoText }) {
+function TodoItem({ todoText, id, onDelete }) {
   return (
-    <View style={styles.Todos}>
-      <Text>{todoText}</Text>
-    </View>
+    <TouchableOpacity onPress={() => onDelete(id)}>
+      <View style={styles.Todos}>
+        <Text>{todoText}</Text>
+      </View>
+    </TouchableOpacity>
   );
 }
 

@@ -14,6 +14,12 @@ export default function App() {
     ]);
   };
 
+  const removeTodoHandler = (todoId) => {
+    setTodos((todos) => {
+      return todos.filter((todo) => todo.id !== todoId);
+    });
+  };
+
   return (
     <View style={styles.Screen}>
       <Text style={styles.Title}>MY TODO APP</Text>
@@ -22,7 +28,11 @@ export default function App() {
         keyExtractor={(item, index) => item.id}
         data={todos}
         renderItem={(itemData) => (
-          <TodoItem todoText={itemData.item.value} />
+          <TodoItem
+            todoText={itemData.item.value}
+            id={itemData.item.id}
+            onDelete={removeTodoHandler}
+          />
         )}></FlatList>
       <StatusBar style='auto' />
     </View>
