@@ -8,6 +8,7 @@ import {
   View,
   FlatList,
 } from 'react-native';
+import TodoItem from './components/TodoItem';
 
 export default function App() {
   const [inputValue, setInputValue] = useState('');
@@ -40,9 +41,7 @@ export default function App() {
         keyExtractor={(item, index) => item.id}
         data={todos}
         renderItem={(itemData) => (
-          <View style={styles.Todos}>
-            <Text>{itemData.item.value}</Text>
-          </View>
+          <TodoItem todoText={itemData.item.value} />
         )}></FlatList>
       <StatusBar style='auto' />
     </View>
@@ -72,12 +71,5 @@ const styles = StyleSheet.create({
     marginRight: 10,
     borderWidth: 1,
     backgroundColor: '#fff',
-  },
-  Todos: {
-    padding: 10,
-    marginTop: 20,
-    backgroundColor: '#ccc',
-    borderColor: '#333',
-    borderWidth: 1,
   },
 });
